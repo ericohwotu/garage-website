@@ -1,0 +1,141 @@
+/*tbody {
+    height: 10px !important;
+    width: 100%;
+    overflow-y: auto !important;
+}*/
+body{
+    background-image: url("../img/garage-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+table{
+    
+    position:relative;
+    /*table-layout: fixed !important;*/
+}
+td, th{
+    width:150px !important;
+}
+thead th:last-child {
+    width: 166px; /* 140px + 16px scrollbar width */
+}
+thead, tbody{
+    display: block;
+}
+tbody {
+    height: 400px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+.row{
+    z-index: 2 !important;
+    padding:10px;
+    padding-left: 30px;
+    padding-right:30px;
+}
+/*#row2{
+    /*border-top-style: solid;
+    border-top-color: lightgray;
+}*/
+.borderless td{
+    border:none !important;
+}
+.progress{
+    background-color: transparent;
+    border-color: #494949;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 0px;
+}
+.damagelevel{
+    background-color: rgba(0,0,90,0.8);
+    transition: width 2s;
+}
+
+.table-btn{
+    display: inline-block;
+    width:100%;
+    
+}
+
+.modal-content{
+    color: white;
+    background-color: #444;
+}
+
+.modal-header, .modal-footer{
+    background-color: #222;
+}
+
+.modal-dialog {
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+textarea{
+    resize: none;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    background-color: #222 !important;
+    border-bottom-style: none !important;
+}
+
+#terminal{
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background-color: #222;
+    border-top-style: none;
+}
+
+textarea:focus, #terminal:focus {
+  outline: none !important;
+  -webkit-appearance:none !important;
+  box-shadow: none !important;
+}
+
+.modal-body{
+    height: auto;
+    overflow: auto;
+}
+
+#garage-ui{
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 5px;
+    padding:0px;
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+#garage-ui button{
+    color: white;
+    background-color: rgba(50,50,50,0.9)
+}
+
+.door{
+    display:block;
+    height:100%;
+    width:50%;
+    position:absolute;
+    background-color: rgba(120,0,90,1);
+    z-index: 5 !important;
+    transition: width 2s;
+}
+.door-left{
+    background-image: url("../img/garage-door-left.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    top:0px;
+    left:0px;
+}
+.door-right{
+    background-image: url("../img/garage-door-right.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    top:0px;
+    right:0px;
+}
