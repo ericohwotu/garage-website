@@ -32,12 +32,12 @@ window.onload = function () {
 
     // set up for command line if enter is pressed then call the function run command
     document.getElementById("terminal")
-    .addEventListener("keyup", function(event) {
-        event.preventDefault();
-        if (event.keyCode == 13) {
-            runCommand()
-        }
-    });
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode == 13) {
+                runCommand()
+            }
+        });
 }
 
 // ========================================= Garage Functions ========================================= //
@@ -57,7 +57,7 @@ function generateCar() {
         var ci = Math.floor(Math.random() * carBrands.length);
         var chosenBrand = carBrands[ci];
         var price = (Math.floor(Math.random() * 50000)) + 10000;
-        this.vehicle = { _id: pendingIndex, _brand: chosenBrand, _price: price, _license: getLicensePlate(5), _parts: generateParts(10,true) }
+        this.vehicle = { _id: pendingIndex, _brand: chosenBrand, _price: price, _license: getLicensePlate(5), _parts: generateParts(10, true) }
 
         pendingCars.push(this.vehicle);
         addToPendingTable(this.vehicle)
@@ -67,11 +67,11 @@ function generateCar() {
     //console.log(pendingCars);
 }
 
-function addVehicle(){
+function addVehicle() {
     this.brand = document.getElementById("make").value
     this.price = document.getElementById("value").value
     this.license = document.getElementById("licenceplate").value
-    this.vehicle = {_id: pendingIndex, _brand:this.brand, _price: this.price, _license: this.license, _parts: generateParts(10,true)};
+    this.vehicle = { _id: pendingIndex, _brand: this.brand, _price: this.price, _license: this.license, _parts: generateParts(10, true) };
     addToGarageTable(this.vehicle)
     garage.vehicles.push(this.vehicle)
 }
@@ -82,11 +82,11 @@ function generateParts(num, dam) {
         maxFixTime = Math.floor(Math.random() * 40) + 10//in minutes 
         maxFixCost = Math.floor(Math.random() * 200) + 50//in pounds
 
-        if(!dam) brokenLevel = 0; else brokenLevel = Math.random()
+        if (!dam) brokenLevel = 0; else brokenLevel = Math.random()
 
         fixTime = maxFixTime * brokenLevel
         fixCost = Math.floor(maxFixCost * brokenLevel)
-        var part = { _id: i, _ref: getLicensePlate(10), _damageLevel: parseFloat(brokenLevel.toFixed(2)), _fixTime: fixTime, _fixCost: fixCost}
+        var part = { _id: i, _ref: getLicensePlate(10), _damageLevel: parseFloat(brokenLevel.toFixed(2)), _fixTime: fixTime, _fixCost: fixCost }
         partsList.push(part)
     }
     return partsList
@@ -118,28 +118,44 @@ function checkOutCar(i) {
             return obj._id != i;
         });
 
+        var vehicleToDelete = garage.vehicles.filter(function (obj) {
+            return obj._id == i;
+        });
+
+        console.log(i)
+        console.log(vehicleToDelete)
+        if(vehicleToDelete[0]._parts.sum("_damageLevel")==0)garage.profit += vehicleToDelete[0]._parts.sum("_fixCost")
+
         garage.vehicles = result
         garageTable.removeChild(doc)
 
         console.log(result)
+        return ">>> successfully checked out\n"
     } else {
         alert("Sorry The Garage is closed. Vehicle will be left in until it reopens")
+        return ">>> Sorry The Garage is closed. Vehicle will be left in until it reopens\n"
     }
 }
 
 function fixVehicle(i) {
-    
-    var objIndex = garage.vehicles.findIndex((obj => obj._id == i));
-    console.log(objIndex)
-    for (j = 0; j < garage.vehicles[objIndex]._parts.length; j++) {
-        garage.vehicles[objIndex]._parts[j]._damageLevel = 0
-    }
+    if (garage.open) {
+        var objIndex = garage.vehicles.findIndex((obj => obj._id == i));
+        console.log(objIndex)
+        for (j = 0; j < garage.vehicles[objIndex]._parts.length; j++) {
+            garage.vehicles[objIndex]._parts[j]._damageLevel = 0
+        }
 
-    //console.log()
-    //update the table
-    var doc = document.getElementById("damage" + i)
-    doc.getElementsByClassName('damagelevel')[0].style.width = 0
-    //doc.appendChild(getProgressBar(0))
+        //console.log()
+        //update the table
+        var doc = document.getElementById("damage" + i)
+        doc.getElementsByClassName('damagelevel')[0].style.width = 0
+        //doc.appendChild(getProgressBar(0))
+
+        return ">>> Successfully fixed the vehicle\n"
+    } else {
+        alert("Sorry the garage is closed")
+        return ">>> Sorry the Garage is currently closed\n"
+    }
 
 }
 
@@ -257,10 +273,10 @@ function getActions(i) {
     return actionsDiv
 }
 
-function openDoors(){
+function openDoors() {
     var doors = document.getElementsByClassName("door");
-    
-    for(var door=0; door<doors.length; door++){
+
+    for (var door = 0; door < doors.length; door++) {
         console.log(door)
         doors[door].style.width = 0;
     }
@@ -269,11 +285,11 @@ function openDoors(){
 }
 
 //=========================================== command line scripts =============================================///
-function runCommand(){
+function runCommand() {
     var commands = document.getElementById("terminal").value.split(" ")
     var consoleOutput = document.getElementById("consoleout")
 
-    switch(commands[0]){
+    switch (commands[0]) {
         case "open":
             garage.open = true;
             consoleOutput.value += ">>> The Garage Is Open\n"
@@ -289,50 +305,82 @@ function runCommand(){
             break;
 
         case "output":
-            if (commands.length>=2){
+            if (commands.length >= 2) {
                 if (commands[1] == "garage") consoleOutput.value += outputGarage()
                 if (commands[1] == "pending") consoleOutput.value += output(pendingCars)
                 if (commands[1] == "created") consoleOutput.value += output(consolePending)
-            }else consoleOutput.value += "Sorry command not recognised please try: \n  garage or \n  pending or\n  created\n"
+            } else consoleOutput.value += "Sorry command not recognised please try: \n  garage or \n  pending or\n  created\n"
             break;
 
         case "create":
-            if (commands.length>=5){
+            if (commands.length >= 5) {
                 var faults = true
-                if(commands[4]=="NOFAULTS") faults = false
+                if (commands[4] == "NOFAULTS") faults = false
                 var price = (Math.floor(Math.random() * 50000)) + 10000;
-                consolePending.push({_id:pendingIndex,_license:commands[2],_brand:commands[1],_parts:generateParts(commands[3],faults), _price: price})
+                consolePending.push({ _id: pendingIndex, _license: commands[2], _brand: commands[1], _parts: generateParts(commands[3], faults), _price: price })
                 pendingIndex++;
                 consoleOutput.value += ">>> Vehicle Succesfully Created\n"
-            }else consoleOutput.value += ">>> Sorry missing some parameters\n"
+            } else consoleOutput.value += ">>> Sorry missing some parameters\n"
+            break;
+
+        case "check":
+            if (commands.length >= 3) {
+                if (commands[1] == "in") consoleOutput.value += checkInCar2(commands[2])
+                if (commands[1] == "out") {
+                    consoleOutput.value += checkOutCar(getId(commands[2]))
+                }
+            } else if (commands.length >= 2) {
+                if (commands[1] == "in" && pendingCars.length > 0) consoleOutput.value += checkInCar()
+                else consoleOutput += ">>> no available car to check in\n"
+            }
+            break;
+
+        case "fix":
+            if (commands.length >= 2) consoleOutput.value += fixVehicle(getId(commands[1]))
+            else consoleOutput.value += ">>> please input the license plate\n"
+            break;
+
+        default:
+            consoleOutput.value += "Help:\n"
+            consoleOutput.value += "    check in => check in from the automated check in queue\n"
+            consoleOutput.value += "    check in <License plate> => check in from the admin created queue\n"
+            consoleOutput.value += "    check out <License plate> => check out from garage\n"
+            consoleOutput.value += "    create <make> <license plate> <amount of parts> <NOFAULTS|FAULTS> => create new vehicle\n"
+            consoleOutput.value += "    open => open the garage\n"
+            consoleOutput.value += "    close => close the garage\n"
+            consoleOutput.value += "    fix <license plate> => fix vehicle in the garage\n"
+            consoleOutput.value += "    output garage => output content of garage\n"
+            consoleOutput.value += "    output created => output content of vehicles you created\n"
+            consoleOutput.value += "    output pending => output content of auto generated vehicles\n\n"
             break;
 
     }
 
     document.getElementById("terminal").value = ""
     consoleOutput.scrollTop = consoleOutput.scrollHeight; //set scroll to latest
-    
+
 }
 
-function outputGarage(){
+function outputGarage() {
     var output = ""
-    
+
     output += "Open: " + garage.open + "\nVehicles: \n\n"
-    for (var i=0; i<garage.vehicles.length; i++){
+    for (var i = 0; i < garage.vehicles.length; i++) {
         output += "    Make: " + garage.vehicles[i]._brand + "\n"
         output += "    License Plate: " + garage.vehicles[i]._license + "\n"
         output += "    Damage Level: " + garage.vehicles[i]._parts.average("_damageLevel") + "\n"
         output += "    Parts: " + garage.vehicles[i]._parts.length + "\n"
         output += "    Cost: " + garage.vehicles[i]._parts.sum("_fixCost") + "\n\n"
     }
+    output += "Profits: " + garage.profit + "\n\n"
 
     return output
 }
 
-function output(list){
+function output(list) {
     var output = ""
-    
-    for (var i=0; i<list.length; i++){
+
+    for (var i = 0; i < list.length; i++) {
         output += "    License Plate: " + list[i]._license + "\n"
         output += "    Make: " + list[i]._brand + "\n"
         output += "    Damage Level: " + list[i]._parts.average("_damageLevel") + "\n"
@@ -353,7 +401,7 @@ function checkInCar2(lic) {
             return obj._license == lic;
         });
 
-        if(result.length == 0) return ">>> License plate does not exist\n"
+        if (result.length == 0) return ">>> License plate does not exist\n"
 
         consolePending = consolePending.filter(function (obj) {
             return obj._license != lic;
@@ -366,4 +414,13 @@ function checkInCar2(lic) {
     } else {
         return ">>> Sorry The Garage is closed\n"
     }
+}
+
+function getId(lic) {
+    var result = garage.vehicles.filter(function (obj) {
+        return obj._license == lic;
+    });
+    
+    if (result.length <= 0) return pendingIndex + 25
+    else return result[0]._id
 }
