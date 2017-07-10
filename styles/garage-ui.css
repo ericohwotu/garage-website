@@ -154,4 +154,5 @@ textarea:focus, #terminal:focus {
 }
 #round-image{
     border-radius: 50%;
+    overflow: hidden;
 }
