@@ -152,11 +152,19 @@ textarea:focus, #terminal:focus {
     background-color: rgba(0,0,0,0.5);
     color: white;
 }
-#round-image{
-    display: inline-block;
-    height: 100px;
-    width: 100px;
+
+.container{
+    text-align: center;
+}
+.round-image{
+    display: block;
+    position:relative;
+    top:100px;
     border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    margin-left:auto;
+    margin-right:auto;
     background-image: url(../img/wooden-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
