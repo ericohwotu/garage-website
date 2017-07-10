@@ -154,6 +154,8 @@ textarea:focus, #terminal:focus {
 }
 #round-image{
     display: block;
+    height: 100px;
+    width:100px;
     border-radius: 50%;
     background-image: url(../img/wooden-bg.jpg);
     background-repeat: no-repeat;
