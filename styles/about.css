@@ -1,0 +1,67 @@
+/**************************************************************************************/
+.translucent{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+.container{
+    text-align: center;
+}
+.round-image{
+    display: block;
+    position:relative;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    margin-right: auto;
+    background-image: url(../img/wooden-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    z-index: 5;
+}
+.cv-section{
+    display:block;
+    position:relative;
+    font-size: 20px;
+    top: -50px;
+    background-color: transparent;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.hover{
+    position: relative;
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+}
+
+.round-image:hover{
+    cursor: pointer;
+}
+.hover:hover{
+    background-color: rgba(0,0,0,0.5);
+}
+
+.cv-icon{
+    display: block;
+    position:fixed;
+    border-radius: 50%;
+    width: 0px;
+    height: 0px;
+    transition: all 0.1s;
+    left:477px;
+}
+
+.pink{
+    background-color: pink;
+}
+.green{
+    background-color: greenyellow;
+}
+.red{
+    background-color: red;
+}
