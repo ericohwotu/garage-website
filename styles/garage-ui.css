@@ -153,6 +153,7 @@ textarea:focus, #terminal:focus {
     color: white;
 }
 #round-image{
+    display: block;
     border-radius: 50%;
     overflow: hidden;
 }
