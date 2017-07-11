@@ -1,3 +1,13 @@
+body{
+    background-image: url("../img/garage-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+html, body{
+    width:100%;
+    height:100% !important;
+}
 /**************************************************************************************/
 .translucent{
     background-color: rgba(0,0,0,0.5);
@@ -10,7 +20,7 @@
     display: block;
     position:relative;
     border-radius: 50%;
-    width: 250px;
+    width: 40%;
     height: 250px;
     margin: auto;
     margin-right: auto;
@@ -37,26 +47,30 @@
     width:100%;
     height: 100%;
     background-color: rgba(0,0,0,0);
+    transition: all 1s;
 }
 
 .round-image:hover{
     cursor: pointer;
 }
 .hover:hover{
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.2);
 }
 
 .cv-icon{
     display: block;
     position:fixed;
     border-radius: 50%;
+    background-color: #bbb;
     width: 0px;
     height: 0px;
     transition: all 0.1s;
     left:477px;
+    box-shadow: 1px 1px 10px rgba(80,80,80,0.3);
+    border: 1px solid white;
 }
 
-.pink{
+/*.pink{
     background-color: pink;
 }
 .green{
@@ -64,4 +78,4 @@
 }
 .red{
     background-color: red;
-}
+}*/

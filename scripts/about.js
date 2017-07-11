@@ -7,9 +7,14 @@ window.onload = function () {
     proPic.addEventListener("mouseout", hideSubMenu)
 }
 
+window.onresize = setUpLinks
+window.onorientationchange = setUpLinks
+window.onscroll = setUpLinks
+
 function setUpLinks() {
     var proPic = document.getElementById("profilepic")
-
+    proPic.style.height = proPic.offsetWidth + "px"
+    
     var cvTop = document.getElementById("cv-top")
     cvTop.style.left = (proPic.offsetLeft + (proPic.offsetWidth / 2) - 35) + "px"
     cvTop.style.top = (proPic.offsetTop - 80) + "px"
@@ -33,6 +38,7 @@ function showSubMenu() {
     for (var i = 0; i < subs.length; i++) {
         subs[i].style.width = "70px";
         subs[i].style.height = "70px";
+        subs[i].style.borderStyle = "solid";
     }
 }
 
@@ -41,5 +47,6 @@ function hideSubMenu() {
     for (var i = 0; i < subs.length; i++) {
         subs[i].style.width = "0px";
         subs[i].style.height = "0px";
+        subs[i].style.borderStyle = "none";
     }
 }
